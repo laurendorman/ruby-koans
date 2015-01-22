@@ -31,7 +31,19 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+dice.sort!
+ return 0 if(dice == [] || dice == nil)
+ return 1000 + score(dice[3..-1]) if(dice.count(1) == 3)
+ return 200 + score(dice[3..-1]) if(dice.count(2) == 3)
+ return 300 + score(dice[3..-1]) if(dice.count(3) == 3)
+ return 400 + score(dice[3..-1]) if(dice.count(4) == 3)
+ return 500 + score(dice[3..-1]) if(dice.count(5) == 3)
+ return 600 + score(dice[3..-1]) if(dice.count(6) == 3)
+ return 50 + score(dice[1..-1]) if(dice[0] == 5)
+ return 100 + score(dice[1..-1]) if(dice[0] == 1)
+ return 0 + score(dice[1..-1])
 end
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
@@ -48,7 +60,7 @@ class AboutScoringProject < Neo::Koan
 
   def test_score_of_multiple_1s_and_5s_is_the_sum_of_individual_scores
     assert_equal 300, score([1,5,5,1])
-  end
+  end 
 
   def test_score_of_single_2s_3s_4s_and_6s_are_zero
     assert_equal 0, score([2,3,4,6])
